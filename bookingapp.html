@@ -38,6 +38,7 @@ function handleFormSubmit(event){
     phone
   }
 
+  
   axios.post("https://crudcrud.com/api/7fc7ab0486284915863ca27a382e006b/appointmentData", userDetails)
   .then((response) =>{
     showNewUserOnScreen(response.data)
