@@ -51,7 +51,18 @@ function showNewUserOnScreen(userDetails){
     const parentEle =document.getElementById('listOfUser');
   const childrenEle = document.createElement('li');
   childrenEle.textContent = userDetails.name + ' - ' + userDetails.email + ' - ' + userDetails.phone;
-  parentEle.appendChild(childrenEle)
+ 
+  const deleteIcon = document.createElement("span");
+        deleteIcon.innerHTML = "  🗑️ ";
+        deleteIcon.style.cursor = "pointer";
+        deleteIcon.onclick = function () {
+          deleteUser(userDetails._id);
+          parentEle.removeChild(childrenEle);
+        };
+
+        childrenEle.appendChild(deleteIcon);
+        parentEle.appendChild(childrenEle);
+  
 }
 
 window.addEventListener("DOMContentLoaded", () =>{
@@ -68,6 +79,18 @@ window.addEventListener("DOMContentLoaded", () =>{
     })
 })
 
+function deleteUser(userId) {
+        axios
+          .delete(
+            `https://crudcrud.com/api/7fc7ab0486284915863ca27a382e006b/appointmentData/${userId}`
+          )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
   </script>
 </html>
 
