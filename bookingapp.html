@@ -60,12 +60,51 @@ function showNewUserOnScreen(userDetails){
           parentEle.removeChild(childrenEle);
         };
 
+        const editIcon = document.createElement("span");
+        editIcon.innerHTML = " ✏️";
+        editIcon.style.cursor = "pointer";
+        editIcon.onclick = function () {
+            populateFormForEdit(userDetails)
+        };
+
         childrenEle.appendChild(deleteIcon);
+        childrenEle.appendChild(editIcon);
         parentEle.appendChild(childrenEle);
   
 }
 
-window.addEventListener("DOMContentLoaded", () =>{
+function updateOnWebsite(userDetails) {
+        const userId = userDetails._id;
+        const existingUserElement = document.getElementById(userId);
+
+        if (existingUserElement) {
+          
+          existingUserElement.textContent =
+            userDetails.name + " - " + userDetails.email + " - " + userDetails.phone;
+        }
+      }
+
+
+
+function populateFormForEdit(userDetails) {
+        
+        document.getElementById("username").value = userDetails.name;
+        document.getElementById("email").value = userDetails.email;
+        document.getElementById("phone").value = userDetails.phone;
+        
+      }
+
+      function clearForm() {
+        
+        document.getElementById("username").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("userId").value = "";
+
+        
+      }
+
+      window.addEventListener("DOMContentLoaded", () =>{
     axios.get("https://crudcrud.com/api/7fc7ab0486284915863ca27a382e006b/appointmentData")
     .then((response) => {
         console.log(response);  
@@ -79,6 +118,7 @@ window.addEventListener("DOMContentLoaded", () =>{
     })
 })
 
+
 function deleteUser(userId) {
         axios
           .delete(
@@ -91,6 +131,10 @@ function deleteUser(userId) {
             console.log(err);
           });
       }
+
+      
+
+
   </script>
 </html>
 
